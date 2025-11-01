@@ -5,6 +5,40 @@ import (
 	"strconv"
 )
 
+func one9a() {
+	var a int
+	var first, second, third int
+	fmt.Scan(&a)
+	first = a / 100
+	second = (a - first*100) / 10
+	third = a - first*100 - second*10
+	// fmt.Println(first, second, third)
+
+	if first == second || first == third || second == third {
+		fmt.Println("NO")
+	} else {
+		fmt.Println("YES")
+	}
+}
+
+func one9b() {
+	var a int //На вход дается натуральное число, не превосходящее 10000.
+	fmt.Scan(&a)
+	first_digit := a
+	//	checking for the input range is intentionally skipped here
+	switch {
+	case a == 10000:
+		first_digit = 1
+	case a > 1000:
+		first_digit = a / 1000
+	case a > 100:
+		first_digit = a / 100
+	case a > 10:
+		first_digit = a / 10
+	}
+	fmt.Println(first_digit)
+}
+
 func one9c() {
 	var sixDigitsStr string
 	// TMP
@@ -41,8 +75,4 @@ func one9c() {
 	} else {
 		fmt.Println("NO") //UnHappy
 	}
-}
-
-func main() {
-	one9c()
 }
