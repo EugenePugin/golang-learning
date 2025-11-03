@@ -1,8 +1,3 @@
-package main
-
-import (
-	"fmt"
-)
 
 func one11a(dbgMode int) {
 	var R float64
@@ -26,8 +21,4 @@ func one11a(dbgMode int) {
 		formattedString := fmt.Sprintf("%.4f", convertedR)
 		fmt.Println(formattedString)
 	}
-}
-
-func main() {
-	one11a(0)
 }
