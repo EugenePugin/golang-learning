@@ -1,31 +1,36 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-func one12a(dbgMode uint) {
-	var workArray [16]uint
+func one12e(mode int) {
+	var N, countOfPositives int
+	mySlice := make([]int, N)
+	var sliceElement int
 
-	if dbgMode == 1 { //dbg mode
-		workArray = [16]uint{99, 151, 137, 71, 117, 187, 20, 93, 187, 67, 1, 2, 3, 5, 7, 8}
+	if mode == 1 {
+		// fmt.Println("Hey, I am dbg mode")
+		N = 5
+		mySlice = append(mySlice, 1, 2, 3, -1, -4)
+
 	} else {
-
+		// fmt.Println("Hey, I am release mode")
+		fmt.Scan(&N)
+		for i := 0; i < N; i++ {
+			fmt.Scan(&sliceElement)
+			mySlice = append(mySlice, sliceElement)
+		}
 	}
 
-	// if R <= 0 {
-	// 	formattedString := fmt.Sprintf("%4.2f", R)
-	fmt.Println(workArray)
-	// } else if R > 10000 {
-	// 	formattedString := fmt.Sprintf("%e", R)
-	// 	fmt.Println(formattedString)
-	// } else {
-	// 	convertedR := (float64)((int64)(R*R*10000)) / 10000
-	// 	formattedString := fmt.Sprintf("%.4f", convertedR)
-	// 	fmt.Println(formattedString)
-	// }
+	for i := 0; i < N; i++ {
+		if mySlice[i] > 0 {
+			countOfPositives++
+		}
+	}
+
+	fmt.Println(countOfPositives)
+
 }
 
 func main() {
-	one12a(1)
+	one12e(0)
 }
