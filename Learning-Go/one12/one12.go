@@ -107,6 +107,42 @@ func one12e() {
 
 }
 
+func one13ff(mode int) {
+	var N uint
+	var mySlice []int
+	var sliceElement int
+
+	if mode == 1 {
+		// fmt.Println("DBG mode welcomes you!")
+		N = 5
+		// mySlice = make([]int, N)
+		mySlice = append(mySlice, 1, 8, 100, 0, 12)
+	} else {
+		// fmt.Println("RELEASE mode welcomes you!")
+		fmt.Scan(&N)
+		for i := 0; i < int(N); i++ {
+			fmt.Scan(&sliceElement)
+			mySlice = append(mySlice, sliceElement)
+		}
+	}
+	// input data check
+	// if !(a > 0 && b > 0) {
+	// 	fmt.Println("Input data are out of range")
+	// 	return
+	// }
+
+	var countOfZero uint
+	for i := 0; i < int(N); i++ {
+		// fmt.Println(mySlice[i])
+		if mySlice[i] == 0 {
+			countOfZero++
+		}
+	}
+
+	fmt.Println(countOfZero)
+
+}
+
 func one12e(mode int) {
 	var N, countOfPositives int
 	mySlice := make([]int, N)
