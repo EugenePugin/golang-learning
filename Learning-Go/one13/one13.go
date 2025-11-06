@@ -297,7 +297,7 @@ func korov_ending(n uint) string {
 	return korovX
 }
 
-func one13mm(mode int) {
+func one13m1m(mode int) {
 	var n, m int
 
 	if mode == 1 {
@@ -334,7 +334,7 @@ func one13mm(mode int) {
 
 }
 
-func one13kk(mode int) {
+func one13k1k(mode int) {
 	var n uint
 
 	if mode == 1 {
@@ -454,5 +454,25 @@ func one13kk(mode int, korovNum uint) {
 		// fmt.Println("and now:", m)
 	}
 	fmt.Println(n, korov_ending(m))
+
+}
+
+func sumInt(inputs ...int) (int, int) {
+
+	// input data check
+	// if n < 1 {
+	// 	fmt.Printf("Input data are out of range")
+	// 	return
+	// }
+	//
+
+	amountOfArguments := len(inputs)
+
+	var sumOfArguments int
+	for i := 0; i < amountOfArguments; i++ {
+		sumOfArguments += inputs[i]
+	}
+
+	return amountOfArguments, sumOfArguments
 
 }

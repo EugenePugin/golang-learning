@@ -1,4 +1,4 @@
-package main
+package one12
 
 import (
 	"fmt"
@@ -89,7 +89,7 @@ func one12(dbgMode uint) {
 
 }
 
-func one12e() {
+func one12ee() {
 	array := [5]int{}
 	var a int
 	for i := 0; i < 5; i++ {

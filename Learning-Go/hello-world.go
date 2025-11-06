@@ -1,48 +1,45 @@
 package main
 
-import (
-	"fmt"
-	"strconv"
-	"strings"
-)
+import "fmt"
 
-func one13(mode int) {
-	var n, m int
+type Person struct {
+	On          bool
+	Ammo, Power int
+}
 
-	if mode == 1 {
-		// fmt.Println("DBG mode welcomes you!")
-		n = 2343434
-		m = 4
+func (p *Person) Shoot() bool {
+	if !p.On {
+		return false
+	}
+	if p.Ammo != 0 {
+		// fmt.Println("!")
+		p.Ammo--
+		return true
 	} else {
-		// fmt.Println("RELEASE mode welcomes you!")
-		fmt.Scan(&n, &m)
+		return false
 	}
-	// input data check
-	if n < 1 || m < 1 {
-		fmt.Printf("Input data are out of range")
-		return
+}
+
+func (p *Person) RideBike() bool {
+	if !p.On {
+		return false
 	}
-	// demount value to digits
-	strSliceRaw := strings.Split(strconv.Itoa(n), "")
-	// fmt.Println("DBG: ", strSliceRaw) // Output: [1 2 3 4 5]
-	var strSliceProcessed []string
-	for i := 0; i < len(strSliceRaw); i++ {
-		// fmt.Println("DBG: ", m)
-		if strconv.Itoa(m) != strSliceRaw[i] {
-			strSliceProcessed = append(strSliceProcessed, strSliceRaw[i])
-		}
+	if p.Power != 0 {
+		p.Power--
+		return true
+	} else {
+		return false
 	}
-
-	// for i := 0; i < len(strSliceProcessed); i++ {
-	// 	fmt.Println("DBG: ", strSliceProcessed[i])
-	// }
-
-	fmt.Println(strings.Join(strSliceProcessed, ""))
-	// remove the 1st occurence of the specified digit
-	// 	TODO
-
 }
 
 func main() {
-	one13(0)
+	testStruct := Person{On: true, Ammo: 1, Power: 2}
+	testStructPtr := &testStruct
+	// fmt.Println(testStruct.On, testStruct.Power, testStruct.Ammo)
+	fmt.Println(testStructPtr.On, testStructPtr.Power, testStructPtr.Ammo)
+	result := testStructPtr.Shoot()
+	fmt.Println("After Shoot:", result, "===", testStructPtr.On, testStructPtr.Power, testStructPtr.Ammo)
+	result = testStructPtr.RideBike()
+	fmt.Println("After RideBike:", result, "===", testStructPtr.On, testStructPtr.Power, testStructPtr.Ammo)
+
 }
