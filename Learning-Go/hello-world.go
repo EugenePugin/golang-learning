@@ -7,39 +7,38 @@ type Person struct {
 	Ammo, Power int
 }
 
+// Shoot уменьшает количество патронов на 1 при выстреле, если возможно.
+// Возвращает true, если выстрел произошёл, иначе false.
 func (p *Person) Shoot() bool {
-	if !p.On {
+	if !p.On || p.Ammo <= 0 {
 		return false
 	}
-	if p.Ammo != 0 {
-		// fmt.Println("!")
-		p.Ammo--
-		return true
-	} else {
-		return false
-	}
+	p.Ammo--
+	return true
 }
 
+// RideBike уменьшает заряд на 1 при езде на велосипеде, если возможно.
+// Возвращает true, если удалось поехать, иначе false.
 func (p *Person) RideBike() bool {
-	if !p.On {
+	if !p.On || p.Power <= 0 {
 		return false
 	}
-	if p.Power != 0 {
-		p.Power--
-		return true
-	} else {
-		return false
-	}
+	p.Power--
+	return true
 }
 
 func main() {
 	testStruct := Person{On: true, Ammo: 1, Power: 2}
 	testStructPtr := &testStruct
-	// fmt.Println(testStruct.On, testStruct.Power, testStruct.Ammo)
-	fmt.Println(testStructPtr.On, testStructPtr.Power, testStructPtr.Ammo)
-	result := testStructPtr.Shoot()
-	fmt.Println("After Shoot:", result, "===", testStructPtr.On, testStructPtr.Power, testStructPtr.Ammo)
-	result = testStructPtr.RideBike()
-	fmt.Println("After RideBike:", result, "===", testStructPtr.On, testStructPtr.Power, testStructPtr.Ammo)
 
+	// Вывод начального состояния
+	fmt.Println("Before:", testStructPtr.On, testStructPtr.Ammo, testStructPtr.Power)
+
+	// Проверка выстрела
+	result := testStructPtr.Shoot()
+	fmt.Println("After Shoot:", result, "===", testStructPtr.On, testStructPtr.Ammo, testStructPtr.Power)
+
+	// Проверка поездки на велосипеде
+	result = testStructPtr.RideBike()
+	fmt.Println("After RideBike:", result, "===", testStructPtr.On, testStructPtr.Ammo, testStructPtr.Power)
 }
