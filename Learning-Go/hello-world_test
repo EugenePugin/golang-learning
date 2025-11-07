@@ -1,0 +1,103 @@
+// person_test.go
+package main
+
+import "testing"
+
+func TestPerson_Shoot(t *testing.T) {
+	tests := []struct {
+		name     string
+		person   Person
+		expected bool
+		ammoLeft int
+	}{
+		{
+			name:     "Can shoot when On and Ammo > 0",
+			person:   Person{On: true, Ammo: 3, Power: 0},
+			expected: true,
+			ammoLeft: 2,
+		},
+		{
+			name:     "Cannot shoot when Off",
+			person:   Person{On: false, Ammo: 3, Power: 0},
+			expected: false,
+			ammoLeft: 3,
+		},
+		{
+			name:     "Cannot shoot when Ammo is 0",
+			person:   Person{On: true, Ammo: 0, Power: 0},
+			expected: false,
+			ammoLeft: 0,
+		},
+		{
+			name:     "Shoot decreases ammo by one",
+			person:   Person{On: true, Ammo: 1, Power: 0},
+			expected: true,
+			ammoLeft: 0,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := tt.person.Shoot()
+			if result != tt.expected {
+				t.Errorf("Shoot() = %v, expected %v", result, tt.expected)
+			}
+			if tt.person.Ammo != tt.ammoLeft {
+				t.Errorf("Ammo = %v, expected %v", tt.person.Ammo, tt.ammoLeft)
+			}
+		})
+	}
+}
+
+func TestPerson_RideBike(t *testing.T) {
+	tests := []struct {
+		name      string
+		person    Person
+		expected  bool
+		powerLeft int
+	}{
+		{
+			name:      "Can ride when On and Power > 0",
+			person:    Person{On: true, Power: 5, Ammo: 0},
+			expected:  true,
+			powerLeft: 4,
+		},
+		{
+			name:      "Cannot ride when Off",
+			person:    Person{On: false, Power: 5, Ammo: 0},
+			expected:  false,
+			powerLeft: 5,
+		},
+		{
+			name:      "Cannot ride when Power is 0",
+			person:    Person{On: true, Power: 0, Ammo: 0},
+			expected:  false,
+			powerLeft: 0,
+		},
+		{
+			name:      "RideBike decreases power by one",
+			person:    Person{On: true, Power: 1, Ammo: 0},
+			expected:  true,
+			powerLeft: 0,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := tt.person.RideBike()
+			if result != tt.expected {
+				t.Errorf("RideBike() = %v, expected %v", result, tt.expected)
+			}
+			if tt.person.Power != tt.powerLeft {
+				t.Errorf("Power = %v, expected %v", tt.person.Power, tt.powerLeft)
+			}
+		})
+	}
+}
+
+func TestPerson_InitialState(t *testing.T) {
+	p := Person{On: true, Ammo: 10, Power: 20}
+	if p.On != true || p.Ammo != 10 || p.Power != 20 {
+		t.Errorf("Initial state is incorrect: %+v", p)
+	}
+}
