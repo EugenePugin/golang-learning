@@ -1,44 +1,38 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
-type Person struct {
-	On          bool
-	Ammo, Power int
-}
+func toFindIndex() {
+	var X, S string
+	fmt.Scan(&X)
+	// reader := bufio.NewReader(os.Stdin)
+	// X, _ := reader.ReadString('\n')
+	X = strings.TrimSpace(X)
+	// fmt.Println("DBG1:", X)
 
-// Shoot уменьшает количество патронов на 1 при выстреле, если возможно.
-// Возвращает true, если выстрел произошёл, иначе false.
-func (p *Person) Shoot() bool {
-	if !p.On || p.Ammo <= 0 {
-		return false
+	// reader2 := bufio.NewReader(os.Stdin)
+	// S, _ := reader2.ReadString('\n')
+	fmt.Scan(&S)
+	S = strings.TrimSpace(S)
+	// fmt.Println("DBG2:", S)
+
+	index := strings.Index(X, S)
+
+	if index != -1 {
+		// fmt.Printf("'%s' starts at byte index %d.\n", S, index)
+		fmt.Println(index)
+	} else {
+		// fmt.Printf("'%s' was not found.\n", S)
+		fmt.Println(-1)
+
 	}
-	p.Ammo--
-	return true
-}
 
-// RideBike уменьшает заряд на 1 при езде на велосипеде, если возможно.
-// Возвращает true, если удалось поехать, иначе false.
-func (p *Person) RideBike() bool {
-	if !p.On || p.Power <= 0 {
-		return false
-	}
-	p.Power--
-	return true
 }
 
 func main() {
-	testStruct := Person{On: true, Ammo: 1, Power: 2}
-	testStructPtr := &testStruct
 
-	// Вывод начального состояния
-	fmt.Println("Before:", testStructPtr.On, testStructPtr.Ammo, testStructPtr.Power)
-
-	// Проверка выстрела
-	result := testStructPtr.Shoot()
-	fmt.Println("After Shoot:", result, "===", testStructPtr.On, testStructPtr.Ammo, testStructPtr.Power)
-
-	// Проверка поездки на велосипеде
-	result = testStructPtr.RideBike()
-	fmt.Println("After RideBike:", result, "===", testStructPtr.On, testStructPtr.Ammo, testStructPtr.Power)
+	toFindIndex()
 }

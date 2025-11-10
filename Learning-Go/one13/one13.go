@@ -1,4 +1,4 @@
-package main
+package one13
 
 import (
 	"fmt"
@@ -26,6 +26,31 @@ func getDigitsString(n int) []int {
 	}
 
 	return digits
+}
+
+type Person struct {
+	On          bool
+	Ammo, Power int
+}
+
+// Shoot уменьшает количество патронов на 1 при выстреле, если возможно.
+// Возвращает true, если выстрел произошёл, иначе false.
+func (p *Person) Shoot() bool {
+	if !p.On || p.Ammo <= 0 {
+		return false
+	}
+	p.Ammo--
+	return true
+}
+
+// RideBike уменьшает заряд на 1 при езде на велосипеде, если возможно.
+// Возвращает true, если удалось поехать, иначе false.
+func (p *Person) RideBike() bool {
+	if !p.On || p.Power <= 0 {
+		return false
+	}
+	p.Power--
+	return true
 }
 
 func one13jj(mode int) {
