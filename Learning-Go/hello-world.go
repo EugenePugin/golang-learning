@@ -5,34 +5,26 @@ import (
 	"strings"
 )
 
-func toFindIndex() {
-	var X, S string
+func ToRemoveSymbolsMoreThenOnce() {
+	var X string
 	fmt.Scan(&X)
-	// reader := bufio.NewReader(os.Stdin)
-	// X, _ := reader.ReadString('\n')
 	X = strings.TrimSpace(X)
-	// fmt.Println("DBG1:", X)
+	runeX := []rune(X)
+	var runeY []rune
+	// fmt.Println("DBG1:", runeX)
+	// fmt.Println("DBG1:", runeX[0])
 
-	// reader2 := bufio.NewReader(os.Stdin)
-	// S, _ := reader2.ReadString('\n')
-	fmt.Scan(&S)
-	S = strings.TrimSpace(S)
-	// fmt.Println("DBG2:", S)
-
-	index := strings.Index(X, S)
-
-	if index != -1 {
-		// fmt.Printf("'%s' starts at byte index %d.\n", S, index)
-		fmt.Println(index)
-	} else {
-		// fmt.Printf("'%s' was not found.\n", S)
-		fmt.Println(-1)
-
+	for i := range runeX {
+		// fmt.Println(strings.Count(X, string(runeX[i])))
+		if strings.Count(X, string(runeX[i])) == 1 {
+			runeY = append(runeY, runeX[i])
+		}
 	}
+	resultingString := string(runeY)
+	fmt.Println(resultingString)
 
 }
 
 func main() {
-
-	toFindIndex()
+	ToRemoveSymbolsMoreThenOnce()
 }

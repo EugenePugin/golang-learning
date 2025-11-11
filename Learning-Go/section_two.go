@@ -66,3 +66,59 @@ func ifPalindrome() bool {
 		return false
 	}
 }
+
+func toFindIndex() {
+	var X, S string
+	fmt.Scan(&X)
+	// reader := bufio.NewReader(os.Stdin)
+	// X, _ := reader.ReadString('\n')
+	X = strings.TrimSpace(X)
+	// fmt.Println("DBG1:", X)
+
+	// reader2 := bufio.NewReader(os.Stdin)
+	// S, _ := reader2.ReadString('\n')
+	fmt.Scan(&S)
+	S = strings.TrimSpace(S)
+	// fmt.Println("DBG2:", S)
+
+	index := strings.Index(X, S)
+
+	if index != -1 {
+		// fmt.Printf("'%s' starts at byte index %d.\n", S, index)
+		fmt.Println(index)
+	} else {
+		// fmt.Printf("'%s' was not found.\n", S)
+		fmt.Println(-1)
+
+	}
+
+}
+
+func RemoveOddSymbols(s string) string {
+	var builder strings.Builder
+	runeSlice := []rune(s)
+
+	// Iterate over each rune (character) in the input string
+	for i := 0; i < len(s); i++ {
+		// fmt.Println("DBGodd:", i, s[i], runeSlice[i])
+
+		if i%2 == 0 {
+			builder.WriteRune(runeSlice[i])
+		}
+	}
+	// Return the new string built from valid characters
+	return builder.String()
+}
+
+func ToLeaveOddOnly() {
+	var X, S string
+	fmt.Scan(&X)
+	// reader := bufio.NewReader(os.Stdin)
+	// X, _ := reader.ReadString('\n')
+	X = strings.TrimSpace(X)
+	// fmt.Println("DBG1:", X)
+
+	S = RemoveOddSymbols(X)
+	fmt.Println(S)
+
+}
