@@ -1,4 +1,4 @@
-package main
+package section_two
 
 import (
 	"bufio"
