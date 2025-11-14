@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -121,4 +122,34 @@ func ToLeaveOddOnly() {
 	S = RemoveOddSymbols(X)
 	fmt.Println(S)
 
+}
+
+func ToRemoveSymbolsMoreThenOnce() {
+	var X string
+	fmt.Scan(&X)
+	X = strings.TrimSpace(X)
+	runeX := []rune(X)
+	var runeY []rune
+	// fmt.Println("DBG1:", runeX)
+	// fmt.Println("DBG1:", runeX[0])
+
+	for i := range runeX {
+		// fmt.Println(strings.Count(X, string(runeX[i])))
+		if strings.Count(X, string(runeX[i])) == 1 {
+			runeY = append(runeY, runeX[i])
+		}
+	}
+	resultingString := string(runeY)
+	fmt.Println(resultingString)
+
+}
+
+func divide__(a int, b int) (int, error) {
+	var err error
+	if b == 0 {
+		err = errors.New("на ноль делить нельзя")
+		return 0, err
+	} else {
+		return a / b, nil
+	}
 }
