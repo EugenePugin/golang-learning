@@ -3,9 +3,11 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"strings"
+	"time"
 	"unicode"
 )
 
@@ -355,4 +357,130 @@ func main66() {
 			fmt.Printf("неизвестная операция") // unsupported value
 		}
 	}
+}
+
+func main77() {
+	var timeString string
+	// timeString = "2006-05-15 18:00:00"
+	// fmt.Scan(&timeString)
+
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	timeString = scanner.Text()
+
+	// timeString = strings.Trim(timeString, "\n")
+	// fmt.Println("DBG:", timeString)
+	layout := "2006-01-02 15:04:05"
+
+	parsedTime, err := time.Parse(layout, timeString)
+
+	if err != nil {
+		log.Fatalf("Error parsing time: %v", err)
+	}
+
+	// fmt.Println("Original String:", timeString)
+	// fmt.Println("Parsed Time Struct:", parsedTime)
+	// fmt.Printf("Year: %d, Month: %s, Day: %d\n",
+	// 	parsedTime.Year(), parsedTime.Month(), parsedTime.Day())
+
+	dinnerTime := 13
+	// fmt.Println("DBG:", parsedTime.Hour())
+	if parsedTime.Hour() < dinnerTime {
+		fmt.Println(parsedTime.Format(layout))
+	} else {
+		shiftedToNextDay := parsedTime.AddDate(0, 0, 1)
+		fmt.Println(shiftedToNextDay.Format(layout))
+	}
+}
+
+func main88() {
+	var timeString string
+	// timeString = "13.03.2018 14:00:15,12.03.2018 14:00:15"
+
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	timeString = scanner.Text()
+	timeString = strings.Trim(timeString, "\n")
+
+	timeString = strings.Trim(timeString, "\n")
+	splitedTime := strings.Split(timeString, ",")
+
+	layout := "02.01.2006 15:04:05"
+
+	parsedTimeA, err := time.Parse(layout, splitedTime[0])
+	if err != nil {
+		log.Fatalf("Error parsing time: %v", err)
+	}
+
+	parsedTimeB, err := time.Parse(layout, splitedTime[1])
+	if err != nil {
+		log.Fatalf("Error parsing time: %v", err)
+	}
+
+	duration := parsedTimeB.Sub(parsedTimeA)
+	duration = duration.Abs()
+	fmt.Println(duration)
+
+}
+
+func main110() {
+	var periodString string
+	const now = 1589570165 //UnixTime
+
+	currentTime := time.Unix(now, 0)
+	locationUTC, _ := time.LoadLocation("UTC")
+	currentTime = currentTime.In(locationUTC)
+	// fmt.Println("Current Time:", currentTime.Format(time.RFC1123Z))
+
+	// periodString = "12 мин. 13 сек."
+
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	periodString = scanner.Text()
+
+	periodString = strings.Trim(periodString, "\n")
+	splitedTime := strings.Split(periodString, " ")
+	minsValue, _ := strconv.Atoi(splitedTime[0])
+	secondsValue, _ := strconv.Atoi(splitedTime[2])
+
+	durationToAdd := time.Minute*time.Duration(minsValue) +
+		time.Second*time.Duration(secondsValue)
+
+	futureTime := currentTime.Add(durationToAdd)
+
+	// fmt.Println("Duration Added:", durationToAdd)
+	// layout := "Mon May 01 02:03:04 UTC 2006"
+
+	fmt.Println(futureTime.Format(time.UnixDate))
+}
+
+func main101() {
+	var periodString string
+	const now = 1589570165 //UnixTime
+
+	currentTime := time.Unix(now, 0)
+	locationUTC, _ := time.LoadLocation("UTC")
+	currentTime = currentTime.In(locationUTC)
+	// fmt.Println("Current Time:", currentTime.Format(time.RFC1123Z))
+
+	// periodString = "12 мин. 13 сек."
+
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	periodString = scanner.Text()
+
+	periodString = strings.Trim(periodString, "\n")
+	splitedTime := strings.Split(periodString, " ")
+	minsValue, _ := strconv.Atoi(splitedTime[0])
+	secondsValue, _ := strconv.Atoi(splitedTime[2])
+
+	durationToAdd := time.Minute*time.Duration(minsValue) +
+		time.Second*time.Duration(secondsValue)
+
+	futureTime := currentTime.Add(durationToAdd)
+
+	// fmt.Println("Duration Added:", durationToAdd)
+	// layout := "Mon May 01 02:03:04 UTC 2006"
+
+	fmt.Println(futureTime.Format(time.UnixDate))
 }
