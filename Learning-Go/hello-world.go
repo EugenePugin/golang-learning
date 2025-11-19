@@ -1,19 +1,39 @@
 package main
 
 import (
+	"container/list"
 	"fmt"
-	"time"
 )
 
-func main() {
-	c = make(chan int,0)
-	go task(c)
-	c -< 5
+func ReverseList(l *list.List) *list.List {
+	//...
+	reversedList := list.New()
 
+	for e := l.Back(); e != nil; e = e.Prev() {
+		reversedList.PushBack(e.Value)
+	}
+
+	return reversedList
 }
 
-func task(c chan int) {
-	N := <-c
-	fmt.Println(N)
-	c -< N+1
+func printList(queue *list.List) {
+	for temp := queue.Front(); temp != nil; temp = temp.Next() {
+		fmt.Print(" ", temp.Value)
+	}
+	fmt.Println()
+}
+
+func main() {
+
+	task := list.New()
+
+	for i := 0; i < 10; i++ {
+		task.PushBack(i)
+	}
+	printList(task)
+	// 0123456789
+
+	printList(ReverseList(task))
+	// 9876543210
+
 }
