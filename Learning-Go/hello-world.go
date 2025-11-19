@@ -6,10 +6,14 @@ import (
 )
 
 func main() {
-	go myFunc()
-	time.Sleep(1 * time.Second) // Пауза в 1 секунду
+	c = make(chan int,0)
+	go task(c)
+	c -< 5
+
 }
 
-func myFunc() {
-	fmt.Println("hello")
+func task(c chan int) {
+	N := <-c
+	fmt.Println(N)
+	c -< N+1
 }
