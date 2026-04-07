@@ -1,4 +1,4 @@
-package section_four
+package hello_ex
 
 import (
 	"fmt"

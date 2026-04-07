@@ -1,5 +1,7 @@
 package one9
 
+// package main
+
 import (
 	"fmt"
 	"strconv"
@@ -39,7 +41,7 @@ func one9b() {
 	fmt.Println(first_digit)
 }
 
-func one9c() {
+func one9() {
 	var sixDigitsStr string
 	// TMP
 	fmt.Scan(&sixDigitsStr)

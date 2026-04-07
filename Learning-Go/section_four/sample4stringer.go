@@ -1,4 +1,4 @@
-package main
+package hello_ex
 
 import (
 	// пакет используется для проверки ответа, не удаляйте его
@@ -18,7 +18,7 @@ func (a Battery) String() string {
 	return ConvertCapUnitsToSymbols(a.Capacity)
 }
 
-func main() {
+func sample4stringer() {
 	const capacityInputLen = 10
 	const allowedSymbols = "01"
 

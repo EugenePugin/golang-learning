@@ -1,4 +1,4 @@
-package main1
+package hello_ex
 
 import (
 	"fmt"
@@ -45,7 +45,7 @@ func slowFunction(x int) int {
 	return x * x
 }
 
-func main() {
+func hello_ex() {
 	// fmt.Println("Main() started")
 	const N = 3
 
