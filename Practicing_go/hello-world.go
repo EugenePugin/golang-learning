@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // func countNumbers(nums []int) string {
 // 	// Ваш код
 // 	var countAboveZero, countBelowZero, countEqualToZero int
@@ -49,23 +51,19 @@ func Some_function_to_test(a, b int) int {
 // }
 
 func main() {
-	// const y float64 = 5.14
 
-	// type Reader interface {
-	// 	Read(p []byte) (n int, err error)
-	// }
+	// start := time.Now()
+	// test_practice(	)
 
-	// // interface Reader { Read(p []byte) (n int, err error) }
+	nums1 := [...]int{3, 1, 2, 2, 2, 2, 4, 8}
+	nums1slice := nums1[:]
+	nums2 := [...]int{19, 4, 9, 8, 4}
+	nums2slice := nums2[:]
+	// discoverIntersection(&nums1slice, &nums2slice)
+	result := intersection(nums1slice, nums2slice)
+	// elapsed := time.Since(start)
+	fmt.Println(result)
 
-	// // type Reader map[string]interface{}
-
-	// // type Reader interface() { Read(p []byte) (n int, err error) }
-
-	// // type Reader struct { Read(p []byte) (n int, err error) }
-
-	// inputData := []int{1, 4, 5, 6, 0, 0, -3, -3}
-	// fmt.Println(countNumbers(inputData))
-
-	// test_practice()
+	// fmt.Printf("Время выполнения: %s\n", elapsed)
 
 }
