@@ -1,69 +1,152 @@
 package main
 
-import "fmt"
-
-// func countNumbers(nums []int) string {
-// 	// Ваш код
-// 	var countAboveZero, countBelowZero, countEqualToZero int
-
-// 	for i := 0; i < len(nums); i++ {
-// 		switch {
-// 		case nums[i] > 0:
-// 			countAboveZero++
-// 		case nums[i] < 0:
-// 			countBelowZero++
-// 		default:
-// 			countEqualToZero++
-// 		}
-// 	}
-
-// 	TextToReturn := "выше нуля: " + strconv.Itoa(countAboveZero) + ", ниже нуля: " + strconv.Itoa(countBelowZero) + ", равна нулю: " + strconv.Itoa(countEqualToZero)
-
-// 	return TextToReturn
-// }
-
-func Some_function_to_test(a, b int) int {
-	// if a == 0 {
-	// 	return 5
-	// }
-	return a + b
-}
-
-// func test_practice() {
-// 	fmt.Println("Let's test!")
-// 	var myArrayA = [3]int{-2, 0, 5}
-// 	var myArrayB = [3]int{-3, 1, 6}
-
-// 	for i := 0; i < 3; i++ {
-// 		if myArrayA[i]+myArrayB[i] == Some_function_to_test(myArrayA[i], myArrayB[i]) {
-// 			fmt.Println("Test[", i, "] passed")
-// 		} else {
-// 			fmt.Println("Test[", i, "] failed")
-// 		}
-// 	}
-
-// 	// input, err := readWithTimeout(5 * time.Second)
-// 	//     if err != nil {
-// 	//         fmt.Println(err)
-// 	//     } else {
-// 	//         fmt.Printf("Вы ввели: %s\n", input)
-// 	//     }
-// }
+import (
+	"fmt"
+)
 
 func main() {
+	n := 123456789
 
-	// start := time.Now()
-	// test_practice(	)
+	removeOddNumbers := func(x int) int {
+		//  на вход получает целое положительное число
+		if x <= 0 {
+			fmt.Println("Input validation failed")
+			return 0
+		}
+		//возвращает число того же типа в котором отсутствуют нечетные цифры и цифра 0
+		digitsReverseSlice := make([]uint, 0)
+		for i := 0; x > 0; i++ {
+			digitsReverseSlice = append(digitsReverseSlice, 1)
+			digitsReverseSlice[i] = uint(x - 10*(x/10))
+			x /= 10
+		}
+		// fmt.Println(digitsReverseSlice, len(digitsReverseSlice))
 
-	nums1 := [...]int{3, 1, 2, 2, 2, 2, 4, 8}
-	nums1slice := nums1[:]
-	nums2 := [...]int{19, 4, 9, 8, 4}
-	nums2slice := nums2[:]
-	// discoverIntersection(&nums1slice, &nums2slice)
-	result := intersection(nums1slice, nums2slice)
-	// elapsed := time.Since(start)
-	fmt.Println(result)
+		digitsSlice := make([]uint, len(digitsReverseSlice))
+		for i := range len(digitsSlice) {
+			digitsSlice[len(digitsSlice)-i-1] = digitsReverseSlice[i]
+		}
+		// fmt.Println("digitsSlice", digitsSlice)
 
-	// fmt.Printf("Время выполнения: %s\n", elapsed)
+		digitsEvenOnly := make([]uint, 0)
+		for i := range len(digitsSlice) {
+			// fmt.Println("i:", i)
+			if i%2 == 1 {
+				// fmt.Println("index odd :", i)
+				digitsEvenOnly = append(digitsEvenOnly, 1)
+				// fmt.Println("index to write:", i-1)
+				digitsEvenOnly[len(digitsEvenOnly)-1] = digitsSlice[i]
+
+				// fmt.Println(digitsEvenOnly)
+			}
+		}
+
+		// fmt.Println(digitsEvenOnly)
+
+		// fmt.Println("digitsSliceRecovery", digitsSliceRecovery)
+
+		var v1 int
+		for i := range len(digitsEvenOnly) {
+			v1 = int(digitsEvenOnly[uint(i)]) + 10*v1
+		}
+		// fmt.Println("Recovered", v1)
+
+		return v1
+	}
+
+	removeOddNumbersClosure := func() int {
+		//возвращает число того же типа в котором отсутствуют нечетные цифры и цифра 0
+		digitsReverseSlice := make([]uint, 0)
+		for i := 0; n > 0; i++ {
+			digitsReverseSlice = append(digitsReverseSlice, 1)
+			digitsReverseSlice[i] = uint(n - 10*(n/10))
+			n /= 10
+		}
+		// fmt.Println(digitsReverseSlice, len(digitsReverseSlice))
+
+		digitsSlice := make([]uint, len(digitsReverseSlice))
+		for i := range len(digitsSlice) {
+			digitsSlice[len(digitsSlice)-i-1] = digitsReverseSlice[i]
+		}
+		// fmt.Println("digitsSlice", digitsSlice)
+
+		digitsEvenOnly := make([]uint, 0)
+		for i := range len(digitsSlice) {
+			// fmt.Println("i:", i)
+			if i%2 == 1 {
+				// fmt.Println("index odd :", i)
+				digitsEvenOnly = append(digitsEvenOnly, 1)
+				// fmt.Println("index to write:", i-1)
+				digitsEvenOnly[len(digitsEvenOnly)-1] = digitsSlice[i]
+
+				// fmt.Println(digitsEvenOnly)
+			}
+		}
+
+		// fmt.Println(digitsEvenOnly)
+
+		// fmt.Println("digitsSliceRecovery", digitsSliceRecovery)
+
+		var v1 int
+		for i := range len(digitsEvenOnly) {
+			v1 = int(digitsEvenOnly[uint(i)]) + 10*v1
+		}
+		// fmt.Println("Recovered", v1)
+
+		return v1
+	}
+
+	removeEvenNumbers := func(x int) int {
+		//  на вход получает целое положительное число
+		if x <= 0 {
+			fmt.Println("Input validation failed: ", x)
+			return 0
+		}
+		//возвращает число того же типа в котором отсутствуют четные цифры и цифра 0
+		digitsReverseSlice := make([]uint, 0)
+		for i := 0; x > 0; i++ {
+			digitsReverseSlice = append(digitsReverseSlice, 1)
+			digitsReverseSlice[i] = uint(x - 10*(x/10))
+			x /= 10
+		}
+
+		digitsSlice := make([]uint, len(digitsReverseSlice))
+		for i := range len(digitsSlice) {
+			digitsSlice[len(digitsSlice)-i-1] = digitsReverseSlice[i]
+		}
+
+		digitsOddOnly := make([]uint, 0)
+		for i := range len(digitsSlice) {
+			// fmt.Println("i:", i)
+			if i%2 == 0 {
+				// fmt.Println("index odd :", i)
+				digitsOddOnly = append(digitsOddOnly, 1)
+				// fmt.Println("index to write:", i-1)
+				digitsOddOnly[len(digitsOddOnly)-1] = digitsSlice[i]
+			}
+		}
+
+		// fmt.Println(digitsOddOnly)
+
+		// fmt.Println("digitsSliceRecovery", digitsSliceRecovery)
+
+		var v1 int
+		for i := range len(digitsOddOnly) {
+			v1 = int(digitsOddOnly[uint(i)]) + 10*v1
+		}
+		// fmt.Println("Recovered", v1)
+
+		return v1
+	}
+
+	fmt.Println(n)
+	a := removeOddNumbersClosure()
+	fmt.Println(n)
+
+	fmt.Println(a)
+	b := removeEvenNumbers(n) //expect 246
+	fmt.Println(b)
+	c := removeOddNumbers(n) //expect 246
+	fmt.Println(c)
 
 }

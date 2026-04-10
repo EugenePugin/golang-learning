@@ -1,4 +1,4 @@
-package main
+package ex3
 
 import (
 	"fmt"
@@ -47,8 +47,8 @@ func removeDuplicates(slice []int) []int {
 	return result
 }
 
-const two_d_array_line_max_size int = 1001           //TODO: to change to 1000
-const two_d_array_total_lines_count_limit int = 1001 //TODO: to change to 1000
+const two_d_array_line_max_size int = 1000           //TODO: to change to 1000
+const two_d_array_total_lines_count_limit int = 1000 //TODO: to change to 1000
 
 func validateInputs(nums [][]int) bool {
 	//TODO: to change to pass a pointer
@@ -197,31 +197,26 @@ func intersection(nums [][]int) []int {
 
 	intersectionSlice := make([]int, 0)
 	// fmt.Println("intersectionSlice:", intersectionSlice)
-	if 1 == len(nums) {
-		//fmt.Println("one line sample")
-		for i := range len(nums[0]) {
-			intersectionSlice = append(intersectionSlice, nums[0][i])
-		}
-	} else {
-		// check whether all values of line0 discovered at all other lines
-		for i := range nums[0] {
-			numberOfOccurence := 0
-			for j := 1; j < len(nums); j++ {
-				// fmt.Println("Checking for ", nums[0][i], " at line", j)
-				if true == ifDiscovered(nums[0][i], nums[j]) {
-					// fmt.Println("Bingo! ", nums[0][i])
-					numberOfOccurence++
-				} else {
-					// fmt.Println("Value ", nums[0][i], "was not discovered at line", j)
-				}
-				// fmt.Println("numberOfOccurence:", numberOfOccurence)
-				if numberOfOccurence == len(nums)-1 {
-					// fmt.Println("Voila", numberOfOccurence)
-					intersectionSlice = append(intersectionSlice, nums[0][i])
-				}
+
+	// check whether all values of tmpSlice discovered at all other lines
+	for i := range nums[0] {
+		numberOfOccurence := 0
+		for j := 1; j < len(nums); j++ {
+			// fmt.Println("Checking for ", nums[0][i], " at line", j)
+			if true == ifDiscovered(nums[0][i], nums[j]) {
+				// fmt.Println("Bingo! ", nums[0][i])
+				numberOfOccurence++
+			} else {
+				// fmt.Println("Value ", nums[0][i], "was not discovered at line", j)
+			}
+			// fmt.Println("numberOfOccurence:", numberOfOccurence)
+			if numberOfOccurence == len(nums)-1 {
+				// fmt.Println("Voila", numberOfOccurence)
+				intersectionSlice = append(intersectionSlice, nums[0][i])
 			}
 		}
 	}
+
 	// fmt.Println("intersectionSlice:", intersectionSlice)
 	// and do sort in asc
 
@@ -231,3 +226,20 @@ func intersection(nums [][]int) []int {
 	result = intersectionSlice
 	return result
 }
+
+/// how to run it
+// func main() {
+
+// 	start := time.Now()
+// 	var nums [][]int
+// 	nums = [][]int{{3, 1, 2}, {1, 2, 3}, {3, 4, 2, 15, 1}, {3, 1, 2, 15, 5}}
+
+// 	// nums = [][]int{{3, 1, 2, 4, 5}, {}, {3, 4, 5, 6}}
+
+// 	result := intersection(nums)
+// 	elapsed := time.Since(start)
+// 	fmt.Println(result)
+
+// 	fmt.Printf("Время выполнения: %s\n", elapsed)
+
+// }
