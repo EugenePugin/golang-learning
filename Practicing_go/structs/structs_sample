@@ -1,0 +1,83 @@
+package structs
+
+import "fmt"
+
+// have a function to get the square of the circle
+
+// Вам необходимо реализовать структуру со свойствами-полями On, Ammo и Power, с типами bool, int, int соответственно.
+// У этой структуры должны быть методы: Shoot и RideBike, которые не принимают аргументов, но возвращают значение bool.
+
+// Если значение On == false, то оба метода вернут false.
+// Делать Shoot можно только при наличии Ammo (тогда Ammo уменьшается на единицу, а метод возвращает true), если его нет, то метод вернет false. Метод RideBike работает также, но только зависит от свойства Power.
+// Чтобы проверить, что вы все сделали правильно, вы должны создать указатель на экземпляр этой структуры с именем testStruct в функции main, в дальнейшем программа проверит результат.
+
+type Robot struct {
+	On    bool
+	Ammo  int
+	Power int
+}
+
+func Shoot(robotptr *Robot) bool {
+	if (*robotptr).On == false {
+		return false
+	}
+	if (*robotptr).Ammo > 0 {
+		(*robotptr).Ammo--
+		return true
+	}
+	return false
+}
+
+func RideBike(robotptr *Robot) bool {
+	if (*robotptr).On == false {
+		return false
+	}
+	if (*robotptr).Power > 0 {
+		(*robotptr).Power--
+		return true
+	}
+	return false
+}
+
+// type Circle struct {
+// 	center_x, center_y, R float32
+// }
+
+// func getCircleSquare(circle_instance_ptr *Circle) float32 {
+// 	return math.Pi * float32(math.Pow(float64((*circle_instance_ptr).R), float64(2)))
+
+// }
+
+func main() {
+	var Mark Robot
+	Mark.Ammo = 3
+	Mark.Power = 4
+
+	fmt.Println("Mark:", Mark)
+	Mark.On = false
+	fmt.Println(Shoot(&Mark))
+	fmt.Println("Mark:", Mark)
+	Mark.On = true
+	fmt.Println(Shoot(&Mark))
+	fmt.Println(Shoot(&Mark))
+	fmt.Println(Shoot(&Mark))
+	fmt.Println(Shoot(&Mark))
+	fmt.Println(Shoot(&Mark))
+	fmt.Println(RideBike(&Mark))
+	fmt.Println(RideBike(&Mark))
+	fmt.Println(RideBike(&Mark))
+	fmt.Println(RideBike(&Mark))
+	fmt.Println(RideBike(&Mark))
+	fmt.Println(RideBike(&Mark))
+	fmt.Println(RideBike(&Mark))
+	fmt.Println("Mark:", Mark)
+
+	// var circle_instance_a Circle
+	// circle_instance_a.R = 33
+	// fmt.Println(getCircleSquare(&circle_instance_a))
+	// var num uint
+	// num = 2
+	// order_num := double_d(&num)
+	// fmt.Println(getFibonacchiListItemByOrderNumber(uint(order_num)))
+
+}

@@ -5,7 +5,7 @@ import (
 	"slices"
 )
 
-// https://leetcode.com/problems/intersection-of-multiple-arrays/description/
+// https://leetcode.com/problems/two-sum/
 // 2248. Intersection of Multiple Arrays
 // Easy
 // Topics
