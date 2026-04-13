@@ -1,0 +1,24 @@
+//создать канал для передачи строк, отправить в него строку «ping» в отдельной горутине и получить результат в основной программе\
+
+package goroutines
+
+import "fmt"
+
+// func another_function(channel chan string) {
+// 	fmt.Println("another_function function goroutine started")
+// 	channel <- string("ping")
+// }
+
+func main() {
+	fmt.Println("main started")
+	channel := make(chan string)
+
+	// go another_function(channel)
+	go func() {
+		fmt.Println("anonymous function function goroutine started")
+		channel <- string("ping")
+	}()
+
+	fmt.Println("main received from channel: ", <-channel)
+
+}

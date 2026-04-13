@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
-package main
+package ex6
 
 import (
 	"fmt"

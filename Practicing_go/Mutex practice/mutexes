@@ -1,0 +1,64 @@
+package main
+
+import (
+	"fmt"
+	"math"
+	"sync"
+	"time"
+)
+
+const max_size = 10 //4950
+
+var sum float64
+
+var mu sync.Mutex
+
+func summator(wg *sync.WaitGroup /*, id int*/, channel chan int) {
+	// fmt.Println("#", id, "launched...")
+	buf := <-channel
+
+	time.Sleep(300 * time.Millisecond)
+	mu.Lock()
+
+	// fmt.Println("sum now", sum, " and ", buf, " is taken from the channel")
+	sum += math.Sqrt(float64(buf))
+	// fmt.Println("And now sum is ", sum)
+	mu.Unlock()
+	wg.Done()
+
+}
+
+func main() {
+	// MX lock demo
+	// do parallel inc from till 100
+	start := time.Now()
+	for i := range max_size {
+		sum += math.Sqrt(float64(i))
+		time.Sleep(300 * time.Millisecond)
+	}
+	times_taken := time.Since(start)
+	fmt.Println("Sequential logic: sum=", sum)
+	fmt.Println("Time taken: ", times_taken)
+
+	sum = 0
+	channel := make(chan int, max_size)
+	var wg sync.WaitGroup
+	var i int
+	for {
+		wg.Add(1)
+		go summator(&wg /*i,*/, channel)
+		i++
+		if i == max_size {
+			break
+		}
+	}
+	start = time.Now()
+	for i := range max_size {
+		channel <- i
+	}
+	wg.Wait()
+	times_taken = time.Since(start)
+	fmt.Println("Parallel logic: sum=", sum)
+	fmt.Println("Time taken: ", times_taken)
+
+}

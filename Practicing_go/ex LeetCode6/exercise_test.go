@@ -1,4 +1,4 @@
-package main
+package ex6
 
 import (
 	"fmt"

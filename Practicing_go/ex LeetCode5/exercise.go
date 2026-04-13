@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/roman-to-integer/description/
 
-package main
+package LC5
 
 import (
 	"fmt"

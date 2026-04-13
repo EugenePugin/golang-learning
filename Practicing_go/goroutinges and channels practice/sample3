@@ -1,0 +1,41 @@
+// использовать буферизированный канал для реализации очереди задач,
+// где отправитель может продолжать работу, не дожидаясь получателя,
+// а получатель ждёт, пока в канале появится место для нового элемента.
+
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+func receiver(wg *sync.WaitGroup, channel <-chan int) {
+	fmt.Println("Reciever started")
+	channelLen := len(channel)
+	// fmt.Println("channel length:", channelLen)
+	for i := range channelLen {
+		fmt.Println("Recieved from channel: #", i, <-channel)
+	}
+	wg.Done()
+}
+
+func main() {
+	fmt.Println("Main started")
+	channel := make(chan int, 5)
+
+	var wg sync.WaitGroup
+	go receiver(&wg, channel)
+	wg.Add(1)
+
+	fmt.Println("channel length:", len(channel))
+
+	// channelCapacity := cap(channel)
+	for i := 0; i < cap(channel); i++ {
+		fmt.Println("Sender started.... sending", i)
+		channel <- cap(channel) - i
+		// fmt.Println("Channel length:", len(channel))
+	}
+	close(channel)
+
+	wg.Wait()
+}

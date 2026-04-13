@@ -1,0 +1,47 @@
+package interfaces
+
+import (
+	"fmt"
+	"math"
+)
+
+type Shape interface {
+	Area() float64
+}
+
+func PrintArea(s Shape) {
+	fmt.Println("Area:", s.Area())
+}
+
+type Rectangle struct {
+	Width, Height float64
+}
+
+func (r Rectangle) Area() float64 {
+	return r.Height * r.Width
+}
+
+type Circle struct {
+	R float64
+}
+
+type Triangle struct {
+	a, b, c float64
+}
+
+func (c Circle) Area() float64 {
+	return math.Pi * math.Pow(c.R, 2)
+}
+
+func main() {
+	fmt.Println("Hey!")
+	var _ Shape = (*Triangle)(nil)
+	r := Rectangle{2, 3}
+	c := Circle{4}
+	t := Triangle{2, 3, 4}
+
+	fmt.Println(c, r, t)
+	PrintArea(r)
+	PrintArea(c)
+	// PrintArea(t)
+}

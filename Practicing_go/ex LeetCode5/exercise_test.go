@@ -1,4 +1,4 @@
-package main
+package LC5
 
 import (
 	"fmt"

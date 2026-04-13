@@ -1,0 +1,85 @@
+//Параллельный подсчёт суммы
+// распределить вычисления на две горутины и собрать результаты через канал
+
+package main
+
+import (
+	"fmt"
+	// "sync"
+	"time"
+)
+
+var some_array [1000000]int
+
+/*
+func sum_part1(wg *sync.WaitGroup, slice []int, start_index, end_index int, outchannel chan int) {
+	// fmt.Println("sum_part1: ", start_index, end_index)
+	var sum int
+	for i := start_index; i <= end_index; i++ {
+		sum += slice[i]
+	}
+	// fmt.Println("sum:", sum)
+	outchannel <- sum
+	wg.Done()
+}
+
+func sum_part2(wg *sync.WaitGroup, slice []int, start_index, end_index int, outchannel chan int) {
+	// fmt.Println("sum_part2: ", start_index, end_index)
+
+	var sum int
+	for i := start_index; i <= end_index; i++ {
+		sum += slice[i]
+	}
+	// fmt.Println("sum:", sum)
+	outchannel <- sum
+	wg.Done()
+}
+*/
+
+func main() {
+	fmt.Println("Main started")
+
+	// initialize
+	for i := range len(some_array) {
+		some_array[i] = i
+	}
+
+	var sum int
+
+	start := time.Now()
+
+	// get sum by iteration
+
+	for i := range len(some_array) {
+		sum += some_array[i]
+	}
+
+	/*
+			some_slice := make([]int, len(some_array))
+		some_slice = some_array[:]
+			var wg sync.WaitGroup
+			outchannel := make(chan int, 2)
+			interim_index := int(len(some_slice) / 2)
+			go sum_part1(&wg, some_slice, 0, interim_index, outchannel)
+			wg.Add(1)
+			go sum_part2(&wg, some_slice, interim_index+1, len(some_slice)-1, outchannel)
+			wg.Add(1)
+			// fmt.Println("....")
+			wg.Wait()
+
+			for {
+				sum += <-outchannel
+				if len(outchannel) == 0 {
+					break
+				}
+			}
+			// fmt.Println("so we have:", sum)
+	*/
+	end := time.Since(start)
+
+	// sum = sum_selected(int(1), some_slice, 0, interim_index) +
+	// 	sum_selected(int(2), some_slice, interim_index+1, len(some_slice)-1)
+
+	fmt.Println("sum:", sum, "calculated in ", end, "- expected to be equal to ", 499999500000)
+
+}

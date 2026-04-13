@@ -1,0 +1,38 @@
+//одна горутина вычисляет квадрат числа, а результат выводится в другой горутине.
+// Также нужно отследить завершение нескольких горутин.
+
+package gouringes1
+
+import (
+	"fmt"
+	"sync"
+)
+
+func pow2(wg *sync.WaitGroup, channel chan int, value int) {
+	fmt.Println("pow2 goroutine started")
+	channel <- value * value
+	wg.Done()
+}
+
+func output(wg *sync.WaitGroup, channel chan int) {
+	fmt.Println("output goroutine started")
+	fmt.Println("taken from the channel: ", <-channel)
+	wg.Done()
+}
+
+func main() {
+	fmt.Println("main started")
+	channel := make(chan int)
+	N := 5
+
+	var wg sync.WaitGroup
+	go pow2(&wg, channel, N)
+	wg.Add(1)
+	go output(&wg, channel)
+	wg.Add(1)
+
+	wg.Wait()
+
+	fmt.Println("main completed")
+
+}
