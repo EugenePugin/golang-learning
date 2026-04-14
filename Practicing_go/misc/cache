@@ -1,4 +1,4 @@
-package main
+package cache
 
 // implement cache with insert, remove, lookup operations
 
