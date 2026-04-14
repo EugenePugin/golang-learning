@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/majority-element/description/
-package main
+package lc9
 
 import (
 	"math"

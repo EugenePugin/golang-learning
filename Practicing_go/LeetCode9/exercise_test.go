@@ -1,4 +1,4 @@
-package main
+package lc9
 
 import "testing"
 
