@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/shortest-distance-to-target-string-in-a-circular-array/description/?envType=daily-question&envId=2026-04-15
-package main
+package lc10
 
 import "sync"
 
