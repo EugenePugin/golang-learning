@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/shortest-distance-to-target-string-in-a-circular-array/description/?envType=daily-question&envId=2026-04-15
-package main
+package HCS1
 
 import (
 	"fmt"
@@ -14,10 +14,12 @@ type FullName struct {
 }
 
 var hotStorage map[int]FullName
-var StorageIdx int
+var hotStorageIdx int
 var hotStorageIdxSlice []int
 
 var coldStorage map[int]FullName
+
+// var coldStorageIdx int
 var coldStorageIdxSlice []int
 
 const HOT_STORAGE_TYPE int = 0
@@ -27,9 +29,6 @@ const FAILURE int = 1
 
 var wg sync.WaitGroup
 var mu sync.RWMutex
-
-// func NewStorage() int {
-// func Store(value FullName) int {
 
 func NewStorage() int {
 	hotStorage = make(map[int]FullName)
@@ -41,54 +40,30 @@ func NewStorage() int {
 	return SUCCESS
 }
 
-// store the given value to a Hot,
-// and replicate to a Cold one asynchronously
 func Store(value FullName) int {
 	// fmt.Println("Store...")
 	// fmt.Println(hotStorage, hotStorageIdx, hotStorageIdxSlice)
 	mu.Lock()
-	idx := StorageIdx
+	idx := hotStorageIdx
 	hotStorage[idx] = value
 	hotStorageIdxSlice = append(hotStorageIdxSlice, idx)
-	StorageIdx++
+	hotStorageIdx++
 	mu.Unlock()
 
 	wg.Add(1)
-	go replicateToColdStorage(idx, value)
+	go func(key int, value FullName) {
+		// var mu sync.Mutex
+		defer wg.Done()
+		time.Sleep(1 * time.Second) // emulating async
+		mu.Lock()
+		coldStorage[key] = value
+		coldStorageIdxSlice = append(coldStorageIdxSlice, key)
+		mu.Unlock()
+	}(idx, value)
 
 	return SUCCESS
 }
 
-func replicateToColdStorage(key int, value FullName) {
-	defer wg.Done()
-	time.Sleep(1 * time.Second) // emulating async
-	mu.Lock()
-	coldStorage[key] = value
-	coldStorageIdxSlice = append(coldStorageIdxSlice, key)
-	mu.Unlock()
-}
-
-// update the value by index - DBG
-func Update(idx int, value FullName) int {
-	fmt.Println("Updating the value by idx...", idx)
-	curValue, ok := Retrieve(idx)
-	if SUCCESS != ok {
-		fmt.Println("The object to update was not found")
-		return FAILURE
-	}
-	fmt.Println("Current value:", curValue)
-
-	mu.Lock()
-	hotStorage[idx] = value
-	mu.Unlock()
-
-	wg.Add(1)
-	go replicateToColdStorage(idx, value)
-
-	return SUCCESS
-}
-
-// delete rand% of data from hot storage
 func dbgCacheInvalidationEmu() {
 	var rndNum int
 	var percentage float32
@@ -133,8 +108,7 @@ func dbgCacheInvalidationEmu() {
 
 }
 
-// retrieve an item from a storage - from a Hot, and if not found from a Cold one
-func Retrieve(idx int) (FullName, int) {
+func Retrieve(storageType int, idx int) (FullName, int) {
 	var empty_record FullName
 
 	mu.RLock()
@@ -156,7 +130,6 @@ func Retrieve(idx int) (FullName, int) {
 	return empty_record, FAILURE
 }
 
-// print out the whole storage content
 func PrintTheStorageContent() int {
 	wg.Wait()
 	if 0 == len(hotStorageIdxSlice) {
@@ -164,7 +137,7 @@ func PrintTheStorageContent() int {
 	}
 	fmt.Println("Checking the storage...")
 	for i := range len(hotStorageIdxSlice) {
-		value, discovered := Retrieve( /*HOT_STORAGE_TYPE, */ hotStorageIdxSlice[i])
+		value, discovered := Retrieve(HOT_STORAGE_TYPE, hotStorageIdxSlice[i])
 		if SUCCESS == discovered {
 			fmt.Println("[", hotStorageIdxSlice[i], "]", value)
 		} else {
@@ -174,7 +147,6 @@ func PrintTheStorageContent() int {
 	return 0
 }
 
-// get the whole storage size by unique items count
 func StorageSize() int {
 	wg.Wait()
 	if 0 == len(hotStorageIdxSlice) {
@@ -183,7 +155,7 @@ func StorageSize() int {
 	var theStorageItemsCount int
 	// fmt.Println("Checking the storage items...")
 	for i := range len(hotStorageIdxSlice) {
-		_, discovered := Retrieve( /*HOT_STORAGE_TYPE,*/ hotStorageIdxSlice[i])
+		_, discovered := Retrieve(HOT_STORAGE_TYPE, hotStorageIdxSlice[i])
 		if SUCCESS == discovered {
 			theStorageItemsCount++
 			// fmt.Println("[", hotStorageIdxSlice[i], "]", value)
@@ -194,17 +166,17 @@ func StorageSize() int {
 	return theStorageItemsCount
 }
 
-// func dbg_PrintTheColdStorageContent() int {
-// 	wg.Wait()
-// 	if 0 == len(coldStorageIdxSlice) {
-// 		return 0
-// 	}
-// 	for i := range len(coldStorageIdxSlice) {
-// 		fmt.Print("Checking the cold storage...")
-// 		value, discovered := Retrieve( /*COLD_STORAGE_TYPE,*/ coldStorageIdxSlice[i])
-// 		if SUCCESS == discovered {
-// 			fmt.Println("[", coldStorageIdxSlice[i], "]", value)
-// 		}
-// 	}
-// 	return 0
-// }
+func dbg_PrintTheColdStorageContent() int {
+	wg.Wait()
+	if 0 == len(coldStorageIdxSlice) {
+		return 0
+	}
+	for i := range len(coldStorageIdxSlice) {
+		fmt.Print("Checking the cold storage...")
+		value, discovered := Retrieve(COLD_STORAGE_TYPE, coldStorageIdxSlice[i])
+		if SUCCESS == discovered {
+			fmt.Println("[", coldStorageIdxSlice[i], "]", value)
+		}
+	}
+	return 0
+}
