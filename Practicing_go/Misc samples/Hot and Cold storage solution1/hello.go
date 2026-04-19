@@ -1,4 +1,4 @@
-package HCS1
+package HCS
 
 import (
 	"fmt"
@@ -23,7 +23,7 @@ func main() {
 	}()
 	fmt.Println("Creating the storage:", result)
 	// PrintTheStorageContent()
-	N := 1000
+	N := 5
 	fmt.Print("Storing ", N, " items there...")
 	result = func(itemsNumber int) string {
 		// fmt.Println("N:", itemsNumber)
@@ -41,7 +41,11 @@ func main() {
 	// PrintTheStorageContent()
 
 	dbgCacheInvalidationEmu()
-	// PrintTheStorageContent()
+	PrintTheStorageContent()
 	fmt.Println("Storage size retrieved:", StorageSize(), "items")
+
+	sampleValue := FullName{"John", "Smith"}
+	Update(2, sampleValue)
+	PrintTheStorageContent()
 
 }

@@ -1,5 +1,5 @@
 // showcase using interfaces for unit-test coverage of sin function
-package main
+package interface_practice
 
 import (
 	"fmt"

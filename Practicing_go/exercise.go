@@ -70,13 +70,14 @@ func replicateToColdStorage(key int, value FullName) {
 
 // update the value by index - DBG
 func Update(idx int, value FullName) int {
-	fmt.Println("Updating the value by idx...", idx)
-	curValue, ok := Retrieve(idx)
-	if SUCCESS != ok {
-		fmt.Println("The object to update was not found")
+	// fmt.Println("Updating the value by idx...", idx)
+	/*curValue*/
+	// _, ok := Retrieve(idx)
+	if /*curValue*/ _, ok := Retrieve(idx); ok != SUCCESS {
+		// fmt.Println("The object to update was not found")
 		return FAILURE
 	}
-	fmt.Println("Current value:", curValue)
+	// fmt.Println("Current value:", curValue)
 
 	mu.Lock()
 	hotStorage[idx] = value
