@@ -1,6 +1,6 @@
 //https://leetcode.com/problems/remove-element/description/
 
-package main
+package LC10
 
 import (
 	"slices"

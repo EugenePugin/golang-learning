@@ -1,4 +1,4 @@
-package main
+package LC100
 
 import "fmt"
 
