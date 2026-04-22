@@ -1,48 +1,79 @@
-//https://leetcode.com/problems/remove-element/description/
+//https://leetcode.com/problems/two-sum/description/
 
 package main
 
 import (
-	"slices"
+	"fmt"
+	"math"
 )
 
-func removeElement(nums []int, val int) int {
+func twoSum(nums []int, target int) []int {
 	// input validation check
-	if val < 0 || val > 100 {
-		return -1
+	if len(nums) < 2 || len(nums) > 10000 {
+		return nil
 	}
-	if len(nums) > 100 {
-		return -2
+	if math.Abs(float64(target)) > math.Pow(10, 9) {
+		return nil
 	}
+
 	for i := range len(nums) {
-		if nums[i] < 0 || nums[i] > 50 {
-			return -3
+		if math.Abs(float64(nums[i])) > math.Pow(10, 9) {
+			return nil
 		}
 	}
 
-	// check all slice items
-	// it not equal to val, inc non-val counter
-	// else replace to spec_symbol
-	nonValCounter := 0
-	for i := range len(nums) {
-		if nums[i] != val {
-			nonValCounter++
+	// logic itself
+
+	// result := make([]int, 2)
+	// for i := range len(nums) - 1 {
+	// 	// fmt.Println("i=", i)
+	// 	firstItem := nums[i]
+	// 	// fmt.Println("    firstItem=", firstItem)
+	// 	for j := i + 1; j < len(nums); j++ {
+	// 		// fmt.Println("    j=", j)
+	// 		// fmt.Println("    item to check:", nums[j])
+	// 		if firstItem+nums[j] == target {
+	// 			result[0] = i
+	// 			result[1] = j
+	// 			return result
+	// 		}
+	// 	}
+	// }
+
+	// 2. Создаем мапу: ключ — значение числа, значение — его индекс в массиве
+	// map[Value]Index
+	seenNumbers := make(map[int]int)
+
+	// 3. Проходим по массиву один раз
+	for i, currentNum := range nums {
+		fmt.Println("i=", i)
+		// Вычисляем, какое число нам нужно найти, чтобы получить target
+		complement := target - currentNum
+		fmt.Println("complement=", complement)
+
+		// Проверяем, встречали ли мы это "дополнение" ранее
+		if complementIndex, ok := seenNumbers[complement]; ok {
+			// Если нашли, возвращаем индексы:
+			// индекс найденного ранее числа и текущий индекс
+			fmt.Println("Bingo!")
+			return []int{complementIndex, i}
 		}
+
+		// Если не нашли, сохраняем текущее число и его индекс в мапу
+		seenNumbers[currentNum] = i
 	}
 
-	if nonValCounter == 0 { //meaning all slices values equal to val
-		return nonValCounter
-	}
+	// Если решение не найдено (по условию LeetCode оно всегда есть)
+	return nil
+	// for i:=range len(mapFacility) {
+	// 	fmt.Println("i:",i)
+	// 	firstItem := mapFacility[i]
+	// 	for j:=1;j<len(mapFacility);j++} {
+	// 		if val, ok = mapFacility[j] == target - firstItem {
+	// 			result[0]
+	// 		}
+	// 	}
 
-	// replace all items equal to val to special symbol, bigger then all others
-	// sort array in asc order
-	specSymbol := 101
-	for i := range len(nums) {
-		if nums[i] == val {
-			nums[i] = specSymbol
-		}
-	}
-	slices.Sort(nums)
+	// }
 
-	return nonValCounter
 }

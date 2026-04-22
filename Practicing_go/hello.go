@@ -1,17 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-	fmt.Println("Hey!")
+	array := [...]int{11, 2, 7, 15}
+	slice := make([]int, len(array))
+	slice = array[:]
 
-	nums_array := [...]int{3, 2, 2, 3} // Input array
-	nums := make([]int, len(nums_array))
-	nums = nums_array[:]
-	val := 3 // Value to remove
-	// var expectedNums []int   // The expected answer with correct length.
-	// It is sorted with no values equaling val.
-	fmt.Println(nums, val)
-	k := removeElement(nums, val) // Calls your implementation
-	fmt.Println(k, nums)
+	target := 26
+
+	fmt.Println(slice, target)
+	time0 := time.Now()
+	result := twoSum(slice, target)
+	time1 := time.Since(time0) * time.Microsecond
+	fmt.Println(result, time1)
 }
