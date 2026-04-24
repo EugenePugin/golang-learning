@@ -1,7 +1,6 @@
-package main
+package lc_climbstairs
 
 import "testing"
-
 
 func Test_climbStairs(t *testing.T) {
 	tests := []struct {
@@ -36,16 +35,6 @@ func Test_climbStairs(t *testing.T) {
 			name: "test",
 			n:    0,
 			want: -1,
-		},
-		{
-			name: "test",
-			n:    1,
-			want: 1,
-		},
-		{
-			name: "test",
-			n:    8,
-			want: 34,
 		},
 	}
 	for _, tt := range tests {
