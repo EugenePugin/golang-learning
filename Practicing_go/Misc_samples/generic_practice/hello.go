@@ -68,10 +68,10 @@ func main() {
 	for i := range sliceInt {
 		sliceInt32[i] = rand.Int31n(10)
 	}
-	fmt.Printf("%d", sliceInt32)
-	fmt.Println()
-	if ok := sortInt(sliceInt32); ok == nil { //compile issues
-		fmt.Println(sliceInt32)
-	}
+	// fmt.Printf("%d", sliceInt32)
+	// fmt.Println()
+	// if ok := sortInt(sliceInt32); ok == nil { //compile issues
+	// 	fmt.Println(sliceInt32)
+	// }
 
 }

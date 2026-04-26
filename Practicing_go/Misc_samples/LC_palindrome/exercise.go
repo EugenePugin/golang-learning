@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/palindrome-number/
 
-package main
+package LCpalindrome
 
 func isPalindrome(x int) bool {
 	// negative numbers can't be palindromes
@@ -24,15 +24,15 @@ func isPalindrome(x int) bool {
 	}
 	// fmt.Println(sliceDigits)
 
-	// var formLeftToRight, formRightToLeft int
-	// multiplyer := 1
-	// for i := 0; i < len(sliceDigits); i++ {
-	// 	formLeftToRight += sliceDigits[i] * multiplyer
-	// 	formRightToLeft += sliceDigits[len(sliceDigits)-i-1] * multiplyer
-	// 	multiplyer *= 10
-	// }
-	// if formLeftToRight == formRightToLeft {
-	// 	return true
-	// }
+	var formLeftToRight, formRightToLeft int
+	multiplyer := 1
+	for i := 0; i < len(sliceDigits); i++ {
+		formLeftToRight += sliceDigits[i] * multiplyer
+		formRightToLeft += sliceDigits[len(sliceDigits)-i-1] * multiplyer
+		multiplyer *= 10
+	}
+	if formLeftToRight == formRightToLeft {
+		return true
+	}
 	return false
 }

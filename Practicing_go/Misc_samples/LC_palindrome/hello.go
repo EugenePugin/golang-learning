@@ -1,4 +1,4 @@
-package main
+package LCpalindrome
 
 import "fmt"
 
@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(x, isPalindrome(x))
 	x = 1221
 	fmt.Println(x, isPalindrome(x))
-x = 12214
+	x = 12214
 	fmt.Println(x, isPalindrome(x))
 
 }

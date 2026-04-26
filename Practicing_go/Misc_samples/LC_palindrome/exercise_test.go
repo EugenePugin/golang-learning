@@ -1,4 +1,4 @@
-package main
+package LCpalindrome
 
 import "testing"
 
@@ -10,34 +10,34 @@ func Test_isPalindrome(t *testing.T) {
 		want bool
 	}{
 		{
-			name: "test",
-			x:    1,
-			want: true,
+			name:	"test",
+			x:		1,
+			want:	true,
 		},
 		{
-			name: "test",
-			x:    11,
-			want: true,
+			name:	"test",
+			x:		11,
+			want:	true,
 		},
 		{
-			name: "test",
-			x:    121,
-			want: true,
+			name:	"test",
+			x:		121,
+			want:	true,
 		},
 		{
-			name: "test",
-			x:    12233221,
-			want: true,
+			name:	"test",
+			x:		12233221,
+			want:	true,
 		},
 		{
-			name: "test",
-			x:    122334221,
-			want: false,
+			name:	"test",
+			x:		122334221,
+			want:	false,
 		},
 		{
-			name: "test",
-			x:    -1221,
-			want: false,
+			name:	"test",
+			x:		-1221,
+			want:	false,
 		},
 	}
 	for _, tt := range tests {

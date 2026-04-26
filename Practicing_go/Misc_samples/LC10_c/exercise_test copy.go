@@ -1,4 +1,4 @@
-package LC10
+package LC10_c
 
 import "testing"
 
