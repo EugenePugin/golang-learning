@@ -1,4 +1,4 @@
-package main
+package LC_brackets
 
 import "testing"
 

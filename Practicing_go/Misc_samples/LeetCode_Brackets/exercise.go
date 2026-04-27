@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/valid-parentheses/description/
-package main
+package LC_brackets
 
 import (
 	"slices"
