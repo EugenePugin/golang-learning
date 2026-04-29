@@ -1,9 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	s := "(){"
-	// s := "()[]"
-	fmt.Println(isValid(s))
+	digits := [...]int{9}
+
+	fmt.Println(digits)
+	/*result := */ plusOne(digits[:])
+	// fmt.Println(result)
+	// fmt.Println(slices.Compare(result, digits[:]))
 }
