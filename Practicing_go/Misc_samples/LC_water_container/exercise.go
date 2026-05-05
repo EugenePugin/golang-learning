@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/container-with-most-water/description/
 
-package main
+package LCwc
 
 import (
 	"math"
