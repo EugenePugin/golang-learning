@@ -3,7 +3,7 @@
 // check slice of pointers to int
 // double all the slice elements
 
-package main
+package t_bank_interview
 
 import (
 	"fmt"
