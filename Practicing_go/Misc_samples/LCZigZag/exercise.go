@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/zigzag-conversion/description/
 
-package main
+package LCZigZag
 
 import "strings"
 
