@@ -1,14 +1,9 @@
 mode: set
-Practicing_go/exercise.go:8.52,9.23 1 1
-Practicing_go/exercise.go:9.23,11.3 1 1
-Practicing_go/exercise.go:12.2,13.20 2 1
-Practicing_go/hello.go:8.68,14.13 1 1
-Practicing_go/hello.go:14.13,16.3 1 1
-Practicing_go/hello.go:18.2,18.23 1 1
-Practicing_go/hello.go:18.23,19.50 1 1
-Practicing_go/hello.go:19.50,21.4 1 1
-Practicing_go/hello.go:23.2,23.23 1 1
-Practicing_go/hello.go:23.23,24.50 1 1
-Practicing_go/hello.go:24.50,26.4 1 1
-Practicing_go/hello.go:29.2,32.14 2 1
-Practicing_go/hello.go:34.13,50.2 8 0
+Practicing_go/exercise.go:10.25,12.13 2 1
+Practicing_go/exercise.go:12.13,17.46 3 1
+Practicing_go/exercise.go:17.46,20.4 2 1
+Practicing_go/exercise.go:22.3,23.51 1 1
+Practicing_go/exercise.go:23.51,26.4 2 1
+Practicing_go/exercise.go:28.3,29.32 2 1
+Practicing_go/exercise.go:32.2,32.15 1 1
+Practicing_go/hello.go:5.13,9.2 3 0

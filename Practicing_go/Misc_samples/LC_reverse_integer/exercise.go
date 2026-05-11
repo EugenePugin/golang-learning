@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/reverse-integer/description/
 
-package main
+package LC_reverse_integer
 
 import (
 	"math"
