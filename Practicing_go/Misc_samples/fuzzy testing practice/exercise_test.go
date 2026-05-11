@@ -1,4 +1,4 @@
-package main
+package fuzzy_testing
 
 import (
 	"testing"

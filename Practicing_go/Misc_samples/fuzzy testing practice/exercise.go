@@ -3,7 +3,7 @@
 // have a function, reversing all the symbols of the given string
 // and let's fuzzy-test it
 
-package main
+package fuzzy_testing
 
 import "github.com/rivo/uniseg"
 

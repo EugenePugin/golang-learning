@@ -2,10 +2,76 @@
 
 package LCZigZag
 
-import "strings"
+// func convert_v1(s string, numRows int) string {
+// 	// input validation
+// 	if numRows < 1 ||
+// 		numRows > 1000 {
+// 		return ""
+// 	}
+// 	if len(s) < 1 ||
+// 		len(s) > 1000 {
+// 		return ""
+// 	}
+// 	// special case
+// 	if numRows == 1 {
+// 		return s
+// 	}
+// 	// create 2d map of indeces
+// 	// fmt.Println("ok, let's go - #3")
+// 	slice2d := make([][]rune, numRows)
+// 	for i := range numRows {
+// 		slice2d[i] = make([]rune, len(s))
+// 	}
+// 	for row := range numRows {
+// 		for col := range len(s) {
+// 			slice2d[row][col] = 0
+// 		}
+// 	}
+// 	// printSlice2d(slice2d)
+// 	// fmt.Println()
+// 	// go there from up to down, once achieve the limit to up and left
+
+// 	var row, col int
+// 	var zigzagMode bool
+// 	for i := range len(s) {
+// 		// fmt.Println("i:", i)
+// 		slice2d[row][col] = rune(s[i])
+// 		// fmt.Println(string(slice2d[row][col]))
+// 		// printSlice2d(slice2d)
+// 		if i%(numRows-1) == 0 {
+// 			zigzagMode = true
+// 		}
+// 		if i%(numRows+numRows-2) == 0 {
+// 			zigzagMode = false
+// 		}
+// 		// fmt.Println("\tzigzagMode:", zigzagMode)
+// 		if zigzagMode {
+// 			row--
+// 			col++
+// 		} else {
+// 			row++
+// 		}
+// 		// fmt.Println("\trow:", row, "col:", col)
+// 	}
+
+// 	// compact the slice reading line by line
+
+// 	var result strings.Builder
+// 	for row := range numRows {
+// 		for col := range slice2d[row] {
+// 			if slice2d[row][col] != 0 {
+// 				result.WriteString(string(slice2d[row][col]))
+// 				// fmt.Println(result, slice2d[row][col])
+// 			}
+// 		}
+
+// 	}
+
+// 	return result.String()
+// }
 
 func convert(s string, numRows int) string {
-	// input validation
+	// Базовые проверки
 	if numRows < 1 ||
 		numRows > 1000 {
 		return ""
@@ -18,56 +84,36 @@ func convert(s string, numRows int) string {
 	if numRows == 1 {
 		return s
 	}
-	// create 2d map of indeces
-	// fmt.Println("ok, let's go - #3")
-	slice2d := make([][]rune, numRows)
-	for i := range numRows {
-		slice2d[i] = make([]rune, len(s))
-	}
-	for row := range numRows {
-		for col := range len(s) {
-			slice2d[row][col] = 0
-		}
-	}
-	// printSlice2d(slice2d)
-	// fmt.Println()
-	// go there from up to down, once achieve the limit to up and left
 
-	var row, col int
-	var zigzagMode bool
-	for i := range len(s) {
-		// fmt.Println("i:", i)
-		slice2d[row][col] = rune(s[i])
-		// fmt.Println(string(slice2d[row][col]))
-		// printSlice2d(slice2d)
-		if i%(numRows-1) == 0 {
-			zigzagMode = true
+	// Создаем массив байтовых слайсов — по одному на каждую строку
+	// Мы заранее знаем, что суммарно в них будет len(s) байт
+	rows := make([][]byte, numRows)
+
+	currentRow := 0
+	goingDown := false
+
+	// Проходим по строке один раз
+	for i := 0; i < len(s); i++ {
+		rows[currentRow] = append(rows[currentRow], s[i])
+
+		// Если дошли до верхней или нижней границы — меняем направление
+		if currentRow == 0 || currentRow == numRows-1 {
+			goingDown = !goingDown
 		}
-		if i%(numRows+numRows-2) == 0 {
-			zigzagMode = false
-		}
-		// fmt.Println("\tzigzagMode:", zigzagMode)
-		if zigzagMode {
-			row--
-			col++
+
+		if goingDown {
+			currentRow++
 		} else {
-			row++
+			currentRow--
 		}
-		// fmt.Println("\trow:", row, "col:", col)
+	}
+	// fmt.Print(rows)
+	// Собираем результат в один слайс байт
+	// Предварительная аллокация всей длины строки делает это очень быстрым
+	result := make([]byte, 0, len(s))
+	for _, row := range rows {
+		result = append(result, row...)
 	}
 
-	// compact the slice reading line by line
-
-	var result strings.Builder
-	for row := range numRows {
-		for col := range slice2d[row] {
-			if slice2d[row][col] != 0 {
-				result.WriteString(string(slice2d[row][col]))
-				// fmt.Println(result, slice2d[row][col])
-			}
-		}
-
-	}
-
-	return result.String()
+	return string(result)
 }
