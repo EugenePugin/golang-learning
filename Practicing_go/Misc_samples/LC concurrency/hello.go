@@ -12,46 +12,44 @@ func NewFoo() *Foo {
 	return &Foo{}
 }
 
-func (f *Foo) First(printFirst func()) {
+func (f *Foo) First(printFirst func() string) string {
 	// Do not change this line
-	printFirst()
+	return printFirst()
 }
 
-func (f *Foo) Second(printSecond func()) {
+func (f *Foo) Second(printSecond func() string) string {
 	/// Do not change this line
-	printSecond()
+	return printSecond()
 }
 
-func (f *Foo) Third(printThird func()) {
+func (f *Foo) Third(printThird func() string) string {
 	// Do not change this line
-	printThird()
+	return printThird()
 }
-func printFirst() {
-	fmt.Print("first")
+func printFirst() string {
+	return "first"
 }
-func printSecond() {
-	fmt.Print("second")
+func printSecond() string {
+	return "second"
 }
-func printThird() {
-	fmt.Print("third")
+func printThird() string {
+	return "third"
 }
 
-func main() {
-	nums := []int{3, 2, 1}
-	foo := NewFoo()
-	/*
-		if len(nums) != 3 {
-			fmt.Println("error: nums len must be equal to 3")
+func goroutine_runner(nums []int) string {
+
+	if len(nums) != 3 {
+		return "error: nums len must be equal to 3"
+	}
+	for i := range nums {
+		if nums[i] < 1 || nums[i] > 3 {
+			return "error: nums[i] must be equal to 1 or 2 or 3"
 		}
-		for i := range nums {
-			if nums[i] < 1 || nums[i] > 3 {
-				fmt.Println("error: nums[i] must be equal to 1 or 2 or 3")
-			}
-		}*/
+	}
 	var wg sync.WaitGroup
 	ch1 := make(chan int)
 	ch2 := make(chan int)
-
+	var result string
 	for i := range nums {
 		wg.Add(1)
 		go func(id int) {
@@ -59,21 +57,31 @@ func main() {
 			// fmt.Println("id#", id, "is running")
 			switch id {
 			case 1:
-				foo.First(printFirst)
+				result = foo.First(printFirst)
 				ch1 <- int(1)
 				close(ch1)
 			case 2:
 				<-ch1
-				foo.Second(printSecond)
+				result += foo.Second(printSecond)
 				ch2 <- int(1)
 				close(ch2)
 			case 3:
 				<-ch2
-				foo.Third(printThird)
+				result += foo.Third(printThird)
 			default:
 				panic("wow, that's not expected")
 			}
 		}(nums[i])
 	}
 	wg.Wait()
+	return result
+}
+
+var foo *Foo
+
+func main() {
+	nums := []int{3, 2, 1}
+	foo = NewFoo()
+
+	fmt.Println(goroutine_runner(nums))
 }
