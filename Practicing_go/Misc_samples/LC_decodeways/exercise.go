@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/decode-ways/description/?envType=problem-list-v2&envId=dh5241mj
 
-package main
+package LC_decodeways
 
 import (
 	"slices"
