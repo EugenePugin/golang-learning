@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/single-number/description/?envType=problem-list-v2&envId=w4eezmsm
 // https://leetcode.com/problems/single-number-ii/description/
-package main
+package LC_single_number
 
 // func singleNumber_v1(nums []int) int {
 // 	// fmt.Println(nums)

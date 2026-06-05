@@ -1,4 +1,4 @@
-package LC_single_number
+package main
 
 import "testing"
 
