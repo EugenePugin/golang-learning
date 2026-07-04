@@ -1,4 +1,4 @@
-package main
+package practice_interfaces
 
 func main() {
 	// arrays()
