@@ -1,4 +1,4 @@
-package main
+package more_goroutines
 
 func main() {
 	// goroutines_practice1()
@@ -15,5 +15,5 @@ func main() {
 	// slice1 = slice1[0:len(slice1)-1:len(slice1)-1]
 	// fmt.Println(slice1, len(slice1), cap(slice1))
 
-	// goroutinesPractice3()
+	goroutinesPractice3()
 }
