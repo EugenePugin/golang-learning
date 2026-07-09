@@ -27,8 +27,18 @@ func main() {
 	runtime.SetBlockProfileRate(1)     // Логировать 100% событий блокировок горутин
 
 	// 2. Запускаем нашу логику
-	troubleshooting_practice()
+	// check overall time on
+	time0 := time.Now()
+	if err := troubleshooting_practice(1000, 0); err != nil {
+		// mode 0: 1.25ms
+		// mode 1: 4+ using sync.map
+		// mode 2: fan-in
+		panic(err)
+	}
 
+	duration := time.Since(time0)
+
+	fmt.Println("Done in", duration)
 	// 3. Записываем накопленный профиль мьютексов в файл перед выходом
 	f, err := os.Create("mutex.pprof")
 	if err != nil {
