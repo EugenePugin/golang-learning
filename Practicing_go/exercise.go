@@ -169,3 +169,21 @@ func anonymous_functions_with_closure() {
 	fmt.Println(slice2)
 
 }
+
+func mapsPractice() {
+	// let's have a map[int]*int
+	// organize its filling by random number
+	const mapSize = 20
+	myMap := make(map[int]int, mapSize)
+
+	for range mapSize {
+		key := rand.Intn(mapSize)
+		value := rand.Intn(10)
+		if _, ok := myMap[key]; !ok {
+			myMap[key] = value
+		}
+	}
+
+	fmt.Println(myMap)
+
+}
