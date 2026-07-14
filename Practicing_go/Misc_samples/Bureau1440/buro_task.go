@@ -1,4 +1,4 @@
-package main
+package buro1440
 
 import (
 	"context"
