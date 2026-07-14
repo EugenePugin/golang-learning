@@ -1,4 +1,4 @@
-package main
+package grpc_bytes_demo
 
 import (
 	"context"
@@ -9,7 +9,10 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	// Замените путь на фактический путь к сгенерированному пакету
-	pb "github.com/yourusername/project/byteservice"
+	pb "grpc-bytes-demo/api/byteservice"
+
+	_ "google.golang.org/grpc/encoding/gzip"
+	// "internal/service"
 )
 
 type server struct {
