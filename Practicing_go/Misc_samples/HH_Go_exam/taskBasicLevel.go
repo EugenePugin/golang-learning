@@ -13,24 +13,24 @@ func task1(url string) string {
 		return errReturnString
 	}
 	_, query, ok := strings.Cut(url, "?")
-	// fmt.Println(qPos)
 	if !ok {
 		return errReturnString
 	}
-	start := strings.Index(query, "user=")
-	if start == -1 {
-		return errReturnString
-	}
-	start += len("user=")
 
-	end := strings.Index(query[start:], "&")
-	// fmt.Println(end)
+	// Разбиваем строку запроса на отдельные параметры по символу "&"
+	for _, param := range strings.Split(query, "&") {
+		// Разделяем каждый параметр на "ключ" и "значение"
+		key, value, found := strings.Cut(param, "=")
 
-	if end == -1 {
-		return query[start:]
-	} else {
-		return query[start : start+end]
+		// Проверяем строгое совпадение ключа
+		if found && key == "user" {
+			if value == "" {
+				return errReturnString
+			}
+			return value
+		}
 	}
+	return errReturnString
 }
 
 func AlaMainT1() {
@@ -39,7 +39,50 @@ func AlaMainT1() {
 	fmt.Println(task1(url))
 }
 
+// Описываем структуру диапазона оценок
+type MarkRange struct {
+	Min   int
+	Max   int
+	Label string
+}
+
+// Декларативно объявляем все наши диапазоны.
+// Если в будущем добавятся новые диапазоны, достаточно будет просто дописать строку сюда!
+var markRanges = []MarkRange{
+	{Min: 0, Max: 20, Label: "от 0 до 20"},
+	{Min: 21, Max: 40, Label: "от 21 до 40"},
+	{Min: 41, Max: 60, Label: "от 41 до 60"},
+	{Min: 61, Max: 80, Label: "от 61 до 80"},
+	{Min: 81, Max: 100, Label: "от 81 до 100"},
+}
+
 func task2(allTheMarks string) []string {
+	parts := strings.Fields(allTheMarks)
+	counts := make([]int, len(markRanges))
+	var total int
+	for _, p := range parts {
+		n, err := strconv.Atoi(p)
+		if err != nil || n < 0 || n > 100 {
+			return nil
+		}
+		for i, r := range markRanges {
+			if n >= r.Min && n <= r.Max {
+				counts[i]++
+				total++
+				break
+			}
+		}
+	}
+	result := make([]string, 5)
+
+	for i,r := range markRanges {
+		ratio := 100*float64(counts[i]) / float64(total)
+		result[i] = fmt.Sprintf("число оценок %s: %d доля: %.1f%%", r.Label, counts[i], ratio)
+	}
+	return result
+}
+
+func task2old(allTheMarks string) []string {
 	// return num of marks and their ratio
 	parts := strings.Fields(allTheMarks)
 	nums := make([]int, 0, len(parts))
@@ -47,15 +90,16 @@ func task2(allTheMarks string) []string {
 		n, _ := strconv.Atoi(p)
 		nums = append(nums, n)
 	}
+
 	var nums0_20, nums21_40, nums41_60, nums61_80, nums81_100 int
 	for i := range nums {
-		// if nums[i]<0 {
-		// 	return "Нет корректных оценок"
-		// }
+		if nums[i] < 0 {
+			return nil
+		}
 		if nums[i] >= 0 && nums[i] <= 20 {
 			nums0_20++
 		}
-		if nums[i] >= 20 && nums[i] <= 40 {
+		if nums[i] >= 21 && nums[i] <= 40 {
 			nums21_40++
 		}
 		if nums[i] >= 41 && nums[i] <= 60 {
