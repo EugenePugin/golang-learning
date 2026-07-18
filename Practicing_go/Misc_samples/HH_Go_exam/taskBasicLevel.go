@@ -73,10 +73,12 @@ func task2(allTheMarks string) []string {
 			}
 		}
 	}
-	result := make([]string, 5)
-
-	for i,r := range markRanges {
-		ratio := 100*float64(counts[i]) / float64(total)
+	result := make([]string, len(markRanges))
+	if total == 0 {
+		return nil
+	}
+	for i, r := range markRanges {
+		ratio := 100 * float64(counts[i]) / float64(total)
 		result[i] = fmt.Sprintf("число оценок %s: %d доля: %.1f%%", r.Label, counts[i], ratio)
 	}
 	return result
