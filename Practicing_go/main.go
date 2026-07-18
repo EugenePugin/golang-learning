@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	hh_go_exam.AlaMainT2()
+	hh_go_exam.AlaMainT3()
 	// HH_Go_exam.Task2()
 	// learnsyncpoolusage.LearnSyncPoolUsage()
 	// fmt.Println("Hey!")

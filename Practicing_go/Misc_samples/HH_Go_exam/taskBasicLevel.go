@@ -49,6 +49,9 @@ func task2(allTheMarks string) []string {
 	}
 	var nums0_20, nums21_40, nums41_60, nums61_80, nums81_100 int
 	for i := range nums {
+		// if nums[i]<0 {
+		// 	return "Нет корректных оценок"
+		// }
 		if nums[i] >= 0 && nums[i] <= 20 {
 			nums0_20++
 		}
@@ -88,4 +91,74 @@ func AlaMainT2() {
 	for i := range len(t2Result) {
 		fmt.Println(t2Result[i])
 	}
+}
+
+type Route struct {
+	from string
+	to   string
+}
+
+type RouteStat struct {
+	maxRouteCnt         int
+	uniqueRoutesCnt     int
+	routesWith1transfer int
+}
+
+func t3(routes []Route) RouteStat {
+	var result RouteStat
+	routeStatsMap := make(map[Route]int) // transfer per route
+	for i := range routes {
+		if routes[i].from == "" || routes[i].to == "" {
+			fmt.Println("Нет корректных данных")
+			return result
+		}
+		routeStatsMap[routes[i]]++
+	}
+
+	var routesWith1Transfer, maxRoutesCnt int
+	for _, v := range routeStatsMap {
+		if maxRoutesCnt < v {
+			maxRoutesCnt = v
+		}
+		if v == 1 {
+			routesWith1Transfer++
+		}
+	}
+
+	result = RouteStat{
+		maxRouteCnt:         maxRoutesCnt,
+		uniqueRoutesCnt:     len(routeStatsMap),
+		routesWith1transfer: routesWith1Transfer,
+	}
+	return result
+}
+
+func AlaMainT3() {
+	transferCount := 7
+	routes := make([]Route, transferCount)
+	routes[0] = Route{from: "Moscow", to: "SPb"}
+	routes[1] = Route{from: "SPb", to: "Moscow"}
+	routes[2] = Route{from: "Moscow", to: "SPb"}
+	routes[3] = Route{from: "Kazan", to: "Moscow"}
+	routes[4] = Route{from: "Moscow", to: "SPb"}
+	routes[5] = Route{from: "Kazan", to: "Moscow"}
+	routes[6] = Route{from: "Kazan", to: "Moscow"}
+	for i := range routes {
+		fmt.Println(routes[i])
+	}
+
+	result := t3(routes)
+
+	localrouteStatsMap := make(map[Route]int) // transfer per route
+	for i := range routes {
+		localrouteStatsMap[routes[i]]++
+	}
+	for k, v := range localrouteStatsMap {
+		if v == result.maxRouteCnt {
+			fmt.Println(k.from, k.to, v)
+		}
+	}
+	fmt.Println("Уникальных маршрутов: ", result.uniqueRoutesCnt)
+	fmt.Println("Маршрутов с одной перевозкой: ", result.routesWith1transfer)
+
 }
