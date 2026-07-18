@@ -104,7 +104,7 @@ type RouteStat struct {
 	routesWith1transfer int
 }
 
-func t3(routes []Route) RouteStat {
+func t3a(routes []Route) RouteStat {
 	var result RouteStat
 	routeStatsMap := make(map[Route]int) // transfer per route
 	for i := range routes {
@@ -133,7 +133,7 @@ func t3(routes []Route) RouteStat {
 	return result
 }
 
-func AlaMainT3() {
+func AlaMainT3a() {
 	transferCount := 7
 	routes := make([]Route, transferCount)
 	routes[0] = Route{from: "Moscow", to: "SPb"}
@@ -147,7 +147,7 @@ func AlaMainT3() {
 		fmt.Println(routes[i])
 	}
 
-	result := t3(routes)
+	result := t3a(routes)
 
 	localrouteStatsMap := make(map[Route]int) // transfer per route
 	for i := range routes {
@@ -160,5 +160,45 @@ func AlaMainT3() {
 	}
 	fmt.Println("Уникальных маршрутов: ", result.uniqueRoutesCnt)
 	fmt.Println("Маршрутов с одной перевозкой: ", result.routesWith1transfer)
+
+}
+
+func isValidIP(ip string) bool {
+	// fmt.Println("DBG_:",ip)
+	parts := strings.Split(ip, ".")
+	// fmt.Println("DBG_",parts)
+	if len(parts) != 4 {
+		return false
+	}
+	for r := range parts {
+		if r < 0 || r > 255 {
+			return false
+		}
+	}
+	return true
+}
+
+func listSpamIPs(ips string, threshold int) {
+	parts := strings.Split(ips, " ")
+	ipMap := make(map[string]int) //ip counter
+	for _, r := range parts {
+		if !isValidIP(r) {
+			continue
+		}
+		ipMap[r]++
+	}
+	
+	for k, v := range ipMap {
+		if v < threshold {
+			continue
+		}
+		fmt.Println(k, v)
+	}
+}
+
+func AlaMainT3b() {
+	ips := "192.168.1.1 192.168.1.1 10.0.0.5 8.8.8.8 172.16.0.100 172.16.2220.100 192.168.1.1 53.2"
+	threshold := 3
+	listSpamIPs(ips, threshold)
 
 }
