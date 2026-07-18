@@ -1,11 +1,13 @@
 package main
 
 import (
-	learnsyncpoolusage "Practicing_go/Misc_samples/learnSyncPoolUsage"
+	hh_go_exam "Practicing_go/Misc_samples/HH_Go_exam"
 )
 
 func main() {
-	learnsyncpoolusage.LearnSyncPoolUsage()
+	hh_go_exam.AlaMainT2()
+	// HH_Go_exam.Task2()
+	// learnsyncpoolusage.LearnSyncPoolUsage()
 	// fmt.Println("Hey!")
 	// wildberries.WbTechInterviewTask()
 	// mySlice := make([]int, 0)
