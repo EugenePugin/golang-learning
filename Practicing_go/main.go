@@ -1,13 +1,13 @@
 package main
 
 import (
-	"Practicing_go/Misc_samples/wildberries"
+	learnsyncpoolusage "Practicing_go/Misc_samples/learnSyncPoolUsage"
 )
 
 func main() {
-
+	learnsyncpoolusage.LearnSyncPoolUsage()
 	// fmt.Println("Hey!")
-	wildberries.WbTechInterviewTask()
+	// wildberries.WbTechInterviewTask()
 	// mySlice := make([]int, 0)
 	// for i := range 4 {
 	// 	mySlice = append(mySlice, i)
